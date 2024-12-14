@@ -70,10 +70,10 @@ func isPartiallySafeHelper(levels []int, ascending bool) bool {
 				return false
 			}
 
-			return isSafeHelper(levels[i+1:], ascending)
+			return isSafeHelper(levels[i+2:], ascending)
 		}
 	}
-	return false
+	return true 
 }
 
 func Day2() {
