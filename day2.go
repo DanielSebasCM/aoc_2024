@@ -23,6 +23,10 @@ func isSafe(levels []int) bool {
 		ascending = false
 	}
 
+	return isSafeHelper(levels, ascending)
+}
+
+func isSafeHelper(levels []int, ascending bool) bool {
 	for i := 1; i < len(levels); i++ {
 		diff := levels[i] - levels[i-1]
 		if !ascending {
@@ -40,43 +44,33 @@ func isPartiallySafe(levels []int) bool {
 	if len(levels) < 2 {
 		return true
 	}
-
 	return isPartiallySafeHelper(levels, true) || isPartiallySafeHelper(levels, false)
 }
+
 func isPartiallySafeHelper(levels []int, ascending bool) bool {
+	if isSafeHelper(levels[1:], ascending) {
+		return true
+	}
 
-	for i := 0; i < len(levels); i++ {
-		prevIdx := 0
+	for i := 0; i < len(levels)-2; i++ {
+		diff := levels[i+1] - levels[i]
 
-		safe := false
+		if !ascending {
+			diff *= -1
+		}
 
-		for j := 1; j < len(levels); j++ {
-			if prevIdx == i {
-				prevIdx = j
-				continue
-			}
-
-			if j == i {
-				continue
-			}
-			diff := levels[j] - levels[prevIdx]
-			prevIdx = j
+		if diff > 3 || diff < 1 {
+			diff := levels[i+2] - levels[i]
 
 			if !ascending {
 				diff *= -1
 			}
 
 			if diff > 3 || diff < 1 {
-				break
+				return false
 			}
-			if j == len(levels)-1 || (i == len(levels)-1 && j == len(levels)-2) {
 
-				safe = true
-			}
-		}
-
-		if safe {
-			return true
+			return isSafeHelper(levels[i+1:], ascending)
 		}
 	}
 	return false
