@@ -59,7 +59,6 @@ func isPartiallySafeHelper(levels []int, ascending bool) bool {
 			if j == i {
 				continue
 			}
-			fmt.Println("Prev", prevIdx, "Curr", j, "I", i)
 			diff := levels[j] - levels[prevIdx]
 			prevIdx = j
 
@@ -68,7 +67,6 @@ func isPartiallySafeHelper(levels []int, ascending bool) bool {
 			}
 
 			if diff > 3 || diff < 1 {
-				fmt.Println("FAILED")
 				break
 			}
 			if j == len(levels)-1 || (i == len(levels)-1 && j == len(levels)-2) {

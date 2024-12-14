@@ -65,7 +65,6 @@ func Day1() {
 		counter1[num] += 1
 	}
 
-
 	counter2 := make(map[int]int)
 
 	for _, num := range list2 {
@@ -77,6 +76,6 @@ func Day1() {
 		value2 := counter2[key]
 		similarityScore += key * value * value2
 	}
-	
+
 	fmt.Println("Similarity score:", similarityScore)
 }
